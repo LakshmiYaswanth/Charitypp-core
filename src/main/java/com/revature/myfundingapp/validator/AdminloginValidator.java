@@ -1,18 +1,14 @@
 package com.revature.myfundingapp.validator;
 
-import com.revature.myfundingapp.exceptions.ValidationException;
-
+import com.revature.myfundingapp.exceptions.ValidaterException;
 public class AdminloginValidator {
-	
-
-	
-public static void validateLogin(String name, String password) throws ValidationException {
+public  void validateLogin(String name, String password) throws ValidaterException {
 		
-		if (name == null || name==" ") {
-			throw new ValidationException("Invalid name");
+		if (name == null ) {
+			throw new ValidaterException("Invalid name");
 		}
-		if (password == null || name==" ") {
-			throw new ValidationException("Invalid Password");
+		if (password == null) {
+			throw new ValidaterException("Invalid Password");
 		}
 }
 }

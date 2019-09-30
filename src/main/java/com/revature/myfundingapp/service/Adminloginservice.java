@@ -1,22 +1,23 @@
 package com.revature.myfundingapp.service;
 
 
-import com.revature.myfundingapp.dao.UserDAOImpl;
+import com.revature.myfundingapp.daoimpl.AdminDAOImpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.exceptions.ServiceException;
-import com.revature.myfundingapp.exceptions.ValidationException;
+import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Admin;
 import com.revature.myfundingapp.validator.AdminloginValidator;
 
 public class Adminloginservice {
 	public Admin login(String name, String password) throws ServiceException {
-      UserDAOImpl appDao=new UserDAOImpl();
+      AdminDAOImpl appDao=new AdminDAOImpl();
 		Admin admin = null;
 		try {
-			AdminloginValidator.validateLogin(name, password);
+			AdminloginValidator adminloginValidator= new AdminloginValidator();
+			adminloginValidator.validateLogin(name, password);
 			admin = appDao.login(name, password);
 
-		} catch (ValidationException e) {
+		} catch (ValidaterException e) {
 			System.out.println("Exception:" + e.getMessage());
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage(), e);

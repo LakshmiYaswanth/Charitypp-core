@@ -2,18 +2,24 @@ package com.revature.myfundingapp.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import com.revature.myfundingapp.daoimpl.DonorDAOImpl;
+import com.revature.myfundingapp.daoimpl.RequestDAOimpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Donor;
+import com.revature.myfundingapp.model.Request;
 
 public class RegisterDonor {
 	@Test
 	public void test() throws DBExeception {
-		String name = "RAJ";
-		String password = "IloveU";
-		UserDAO appdao = new UserDAOImpl();
-		Donor donor = appdao.login1(name, password);
+		String name = "yaswanth";
+		String password = "yaswanth";
+		DonorDAOImpl appdao = new DonorDAOImpl();
+		Donor donor = appdao.login(name, password);
 		System.out.println(donor);
 		assertNotNull(donor);
 	}
@@ -22,8 +28,8 @@ public class RegisterDonor {
 		String name = "yaswanth";
 		Integer age = 21;
 		String email = "yaswanth@123";
-		String password = "IloveU";
-		UserDAO appdao = new UserDAOImpl();
+		String password = "yaswanth";
+		DonorDAOImpl appdao = new DonorDAOImpl();
 		Donor donor = new Donor();
 		donor.setName(name);
 		donor.setAge(age);
@@ -34,5 +40,17 @@ public class RegisterDonor {
 		assertNotNull(rows);
 
 	}
-
+@Test
+  public void list()throws DBExeception{
+	DonorDAOImpl appdao = new DonorDAOImpl();
+	List<Donor> donor = new ArrayList<Donor>();
+      try {
+		donor = appdao.donorlist();
+	} catch (DBExeception e) {
+		e.printStackTrace();
+	}
+      System.out.println(donor);    
+}	
+	
 }
+

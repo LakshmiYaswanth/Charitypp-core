@@ -1,10 +1,13 @@
 package com.revature.myfundingapp.service;
 
 
-import com.revature.myfundingapp.dao.UserDAOImpl;
+
+import java.util.List;
+
+import com.revature.myfundingapp.daoimpl.DonorDAOImpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.exceptions.ServiceException;
-import com.revature.myfundingapp.exceptions.ValidationException;
+import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Donor;
 import com.revature.myfundingapp.validator.DonorloginValidator;
 
@@ -12,11 +15,12 @@ public class DonorloginService {
 	public int DonorInsert(Donor donor) throws ServiceException {
 		Integer rows = null;
 		try {
-			UserDAOImpl fundingappDao=new UserDAOImpl ();
-			DonorloginValidator.ValidatorInsert(donor);
+			DonorloginValidator donorValidator= new DonorloginValidator();
+			DonorDAOImpl fundingappDao=new DonorDAOImpl ();
+			donorValidator.ValidatorInsert(donor);
 			rows = fundingappDao.insert(donor);
 
-		} catch (ValidationException e) {
+		} catch (ValidaterException e) {
 			System.out.println("Exception:" + e.getMessage());
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage(), e);
@@ -29,26 +33,36 @@ public class DonorloginService {
 		
 	}
 
-	public Donor Validatorlogin(String name, String password) throws ServiceException {
+	public Donor login(String name, String password) throws ServiceException, DBExeception {
 
 		Donor donor = null;
 			try {
-				UserDAOImpl fundingappDao=new UserDAOImpl();
-				DonorloginValidator.ValidatorLogin(name, password);
-				donor = fundingappDao.login1(name, password);
+				DonorloginValidator donorValidator= new DonorloginValidator();
+				DonorDAOImpl fundingappDao=new DonorDAOImpl();
+				donorValidator.ValidatorLogin(name,password);
+				donor = fundingappDao.login(name, password);
 
-			} catch (ValidationException e) {
+			} catch (ValidaterException e) {
 				System.out.println("Exception:" + e.getMessage());
 				e.printStackTrace();
 				throw new ServiceException(e.getMessage(), e);
-			} catch (DBExeception e) {
-				System.out.println("Exception:" + e.getMessage());
-				e.printStackTrace();
-				throw new ServiceException(e.getMessage(), e);
+			} catch(DBExeception e)
+			{
+				throw new DBExeception(e.getMessage(),e);
 			}
 			return donor;
 		}
-	
+	public List<Donor> list() throws ServiceException {
+		List<Donor> list = null;
+		try {
+			DonorDAOImpl donor=new DonorDAOImpl();
+			list = donor.donorlist();
+		} catch (DBExeception e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage(), e);
+		}
+		return list;
+	}
 	}
 
 

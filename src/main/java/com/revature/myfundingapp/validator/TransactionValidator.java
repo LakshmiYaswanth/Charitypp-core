@@ -1,29 +1,24 @@
 package com.revature.myfundingapp.validator;
 
-import com.revature.myfundingapp.exceptions.ValidationException;
-import com.revature.myfundingapp.model.Request;
-
+import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Transaction;
-
 public class TransactionValidator{
-	public static void ValidatorInsert(Transaction trans) throws ValidationException {
+	public void ValidatorInsert(Transaction trans) throws ValidaterException {
 	
-		if (trans.getId() == 0) {
-			throw new ValidationException("Invalid id");
+		if (trans.getDonorId() == 0) {
+			throw new ValidaterException("Invalid id");
 		}
-		if (trans.getDonor_id() == 0) {
-			throw new ValidationException("Invalid Fund_type");
+		if (trans.getRequestId() == 0) {
+			throw new ValidaterException("Invalid type");
 		}
-		if (trans.getTransaction_id() == 0) {
-			throw new ValidationException("Invalid Password");
+		if (trans.getTransactionId() == 0) {
+			throw new ValidaterException("Invalid Password");
 		}
-		if (trans.getAmountfunded() == 0) {
-			throw new ValidationException("invalid active");
+		if (trans.getAmountfunded()>= 0) {
+			throw new ValidaterException("invalid active");
 		}
-
-	}
+	}}
 	
-	}
 	
 
 

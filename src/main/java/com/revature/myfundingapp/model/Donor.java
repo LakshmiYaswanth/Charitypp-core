@@ -1,16 +1,18 @@
 package com.revature.myfundingapp.model;
 
 public class Donor {
-	private Integer donor_id;
+	private Integer donorId;
 	private String name;
 	private Integer age; 
 	private String email;
 	private String password;
-	public Integer getDonor_id() {
-		return donor_id;
+	private Boolean isloggedIn;
+	private Boolean isallreadyExists;
+	public Integer getDonorId() {
+		return donorId;
 	}
-	public void setDonor_id(Integer donor_id) {
-		this.donor_id = donor_id;
+	public void setDonorId(Integer donorId) {
+		this.donorId = donorId;
 	}
 	public String getName() {
 		return name;
@@ -36,9 +38,16 @@ public class Donor {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public String toString() {
-		return "Donor [donor_id=" + donor_id + ", name=" + name + ", age=" + age + ", email=" + email + ", password="
-				+ password + "]";
+	public Boolean getIsallreadyExists() {
+		return isallreadyExists;
+	}
+	public void setIsallreadyExists(Boolean isallreadyExists) {
+		this.isallreadyExists = isallreadyExists;
+	}
+	public Boolean getIsloggedIn() {
+		return isloggedIn;
+	}
+	public void setIsloggedIn(Boolean isloggedIn) {
+		this.isloggedIn=isloggedIn;
 	}
 }

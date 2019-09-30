@@ -1,15 +1,15 @@
 package com.revature.myfundingapp.model;
 
 public class Admin {
-	private Integer admin_id;
+	private Integer adminId;
 	private String name;
 	private String password;
-	private Boolean isloggedin;
-	public Integer getAdmin_id() {
-		return admin_id;
+	private Boolean isLoggedin;
+	public Integer getAdminId() {
+		return adminId;
 	}
-	public void setAdmin_id(Integer admin_id) {
-		this.admin_id = admin_id;
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
 	}
 	public String getName() {
 		return name;
@@ -23,15 +23,12 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getIsloggedin() {
-		return isloggedin;
+	public Boolean getIsLoggedin() {
+		return isLoggedin;
 	}
-	public void setIsloggedin(Boolean isloggedin) {
-		this.isloggedin = isloggedin;
-	}
-	@Override
-	public String toString() {
-		return "Admin [admin_id=" + admin_id + ", name=" + name + ", password=" + password + ", isloggedin="
-				+ isloggedin + "]";
+	public void setIsLoggedin(Boolean isLoggedin) {
+		this.isLoggedin = isLoggedin;
 	}
 }
+
+	

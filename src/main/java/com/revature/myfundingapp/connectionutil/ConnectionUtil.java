@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ConnectionUtil {
-	public static Connection getConnection() {
+import com.revature.myfundingapp.exceptions.DBExeception;
 
-		String url = "jdbc:mysql://localhost:3306/Ram?useSSL=false";
-		String password = "Yaswanth@10";
-		String username = "root";
+ public class ConnectionUtil {
+	public static Connection getConnection() throws DBExeception {
+
+		String url = "jdbc:mysql://trainingdb.ck1ayq0lncmp.ap-south-1.rds.amazonaws.com:3306/yaswanth_db";
+		String password = "yaswanth";
+		String username = "yaswanth";
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -31,9 +33,7 @@ public class ConnectionUtil {
 				con.close();
 		}
 		catch (Exception e) {
-		}
-		finally {
-			
+			System.out.println("unable to close");
 		}
 	}
 	}

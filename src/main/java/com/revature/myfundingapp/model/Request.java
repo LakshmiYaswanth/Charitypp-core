@@ -1,42 +1,40 @@
 package com.revature.myfundingapp.model;
 
-
-
 import java.time.LocalDate;
 
-
 public class Request{
-	private Integer id ;
-	private String Fund_type;
-	private Integer Amount;
+	
+	private Integer requestId ;
+	private String fundType;
+	private Integer amount;
 	private String active;
-	private Integer Amountneeded;
-	public Integer getAmountneeded() {
-		return Amountneeded;
+	private Integer amountneeded;
+	private LocalDate announcedDate;
+	private LocalDate expireDate;
+	private  Integer adminId ;
+	@Override
+	public String toString() {
+		return "Request [requestId=" + requestId + ", fundType=" + fundType + ", amount=" + amount + ", active="
+				+ active + ", amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate="
+				+ expireDate + ", adminId=" + adminId + "]";
 	}
-	public void setAmountneeded(Integer amountneeded) {
-		Amountneeded = amountneeded;
+	public Integer getRequestId() {
+		return requestId;
 	}
-	private LocalDate Announced_date;
-	private LocalDate Expire_date;
-	private  Integer Admin_id ;
-	public Integer getId() {
-		return id;
+	public void setRequestId(Integer requestId) {
+		this.requestId = requestId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public String getFundType() {
+		return fundType;
 	}
-	public String getFund_type() {
-		return Fund_type;
-	}
-	public void setFund_type(String fund_type) {
-		Fund_type = fund_type;
+	public void setFundType(String fundType) {
+		this.fundType = fundType;
 	}
 	public Integer getAmount() {
-		return Amount;
+		return amount;
 	}
 	public void setAmount(Integer amount) {
-		Amount = amount;
+		this.amount = amount;
 	}
 	public String getActive() {
 		return active;
@@ -44,29 +42,28 @@ public class Request{
 	public void setActive(String active) {
 		this.active = active;
 	}
-	public LocalDate getAnnounced_date() {
-		return Announced_date;
+	public Integer getAmountneeded() {
+		return amountneeded;
 	}
-	public void setAnnounced_date(LocalDate announced_date) {
-		Announced_date = announced_date;
+	public void setAmountneeded(Integer amountneeded) {
+		this.amountneeded = amountneeded;
 	}
-	public LocalDate getExpire_date() {
-		return Expire_date;
+	public LocalDate getAnnouncedDate() {
+		return announcedDate;
 	}
-	public void setExpire_date(LocalDate Expire_date) {
-		this.Expire_date = Expire_date;
+	public void setAnnouncedDate(LocalDate announcedDate) {
+		this.announcedDate = announcedDate;
 	}
-	public Integer getAdmin_id() {
-		return Admin_id;
+	public LocalDate getExpireDate() {
+		return expireDate;
 	}
-	public void setAdmin_id(Integer admin_id) {
-		Admin_id = admin_id;
+	public void setExpireDate(LocalDate expireDate) {
+		this.expireDate = expireDate;
 	}
-	@Override
-	public String toString() {
-		return "Request [id=" + id + ", Fund_type=" + Fund_type + ", Amount=" + Amount + ", active=" + active
-				+ ", Amountneeded=" + Amountneeded + ", Announced_date=" + Announced_date + ", Expire_date="
-				+ Expire_date + ", Admin_id=" + Admin_id + "]";
+	public Integer getAdminId() {
+		return adminId;
 	}
-	
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
 	}
+}

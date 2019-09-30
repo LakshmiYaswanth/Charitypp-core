@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import com.revature.myfundingapp.daoimpl.TransactionDAOImpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Transaction;
 
@@ -17,11 +18,11 @@ public class TransactionTest {
 	int Isinserted = 0;
 	try {
 		Integer AmountFunded = 300;
-		Integer Id = 1;
-		Integer donor_Id = 3;
-		trans.setId(Id);
+		Integer request_Id = 1;
+		Integer donor_Id = 1;
+		trans.setRequestId(request_Id);
 	    trans.setAmountfunded(AmountFunded);
-		trans.setDonor_id(donor_Id);
+		trans.setDonorId(donor_Id);
 		Isinserted = transaction.insert(trans);
 		System.out.println(Isinserted);
 	} catch (DBExeception e) {
