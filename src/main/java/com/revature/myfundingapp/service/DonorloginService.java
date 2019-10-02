@@ -10,7 +10,7 @@ import com.revature.myfundingapp.exceptions.ServiceException;
 import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Donor;
 import com.revature.myfundingapp.validator.DonorloginValidator;
-
+/* Donor Register where we have to give  inputs */  
 public class DonorloginService {
 	public int DonorInsert(Donor donor) throws ServiceException {
 		Integer rows = null;
@@ -21,19 +21,15 @@ public class DonorloginService {
 			rows = fundingappDao.insert(donor);
 
 		} catch (ValidaterException e) {
-			System.out.println("Exception:" + e.getMessage());
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage(), e);
 		} catch (DBExeception e) {
-			System.out.println("Exception:" + e.getMessage());
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage(), e);
 		}
 		return rows;
 		
 	}
-
-	public Donor login(String name, String password) throws ServiceException, DBExeception {
+	/* Donor login where we have to give only valid inputs */  
+	public Donor login(String name, String password) throws ServiceException {
 
 		Donor donor = null;
 			try {
@@ -43,22 +39,21 @@ public class DonorloginService {
 				donor = fundingappDao.login(name, password);
 
 			} catch (ValidaterException e) {
-				System.out.println("Exception:" + e.getMessage());
-				e.printStackTrace();
 				throw new ServiceException(e.getMessage(), e);
 			} catch(DBExeception e)
 			{
-				throw new DBExeception(e.getMessage(),e);
+				throw new ServiceException(e.getMessage(),e);
 			}
 			return donor;
 		}
+	
+	/* List of all Donor */  
 	public List<Donor> list() throws ServiceException {
 		List<Donor> list = null;
 		try {
 			DonorDAOImpl donor=new DonorDAOImpl();
 			list = donor.donorlist();
 		} catch (DBExeception e) {
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage(), e);
 		}
 		return list;

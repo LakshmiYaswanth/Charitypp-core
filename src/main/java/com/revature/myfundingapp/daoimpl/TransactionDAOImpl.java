@@ -9,10 +9,9 @@ import com.revature.myfundingapp.dao.TransactionDAO;
 import com.revature.myfundingapp.exceptions.DBExeception;
 
 import com.revature.myfundingapp.model.Transaction;
-
+/* insert Transaction where we have to give only valid inputs */  
 public class TransactionDAOImpl implements TransactionDAO {
        public int insert(Transaction trans) throws DBExeception{
-		
 		Connection con=null;
 		PreparedStatement pst=null;
 		Integer rows=0;

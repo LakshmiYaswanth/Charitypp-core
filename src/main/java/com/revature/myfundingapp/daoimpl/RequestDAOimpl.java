@@ -11,11 +11,10 @@ import java.util.List;
 import com.revature.myfundingapp.connectionutil.ConnectionUtil;
 import com.revature.myfundingapp.connectionutil.MessageConstant;
 import com.revature.myfundingapp.exceptions.DBExeception;
-import com.revature.myfundingapp.model.Donor;
 import com.revature.myfundingapp.model.Request;
 
 public class RequestDAOimpl {
-	
+	/* Request insert where we have to give only valid inputs */  
 	public int insert(Request request) throws DBExeception{
 			Connection con = null;
 			PreparedStatement pst = null;
@@ -39,7 +38,7 @@ public class RequestDAOimpl {
 				ConnectionUtil.close(con, pst, null);
 			} return Isinserted;
 	}
-
+	/* Request to row*/  
 	public Request toRow(ResultSet rs) {
 		Connection con=null;
 		PreparedStatement pst=null;
@@ -65,7 +64,7 @@ public class RequestDAOimpl {
 		}
 		return request;
 	}
-
+	/* List fund type where we have to give only valid inputs */  
 	public List<Request> findBytype(String fundType)throws DBExeception {
 		Connection con = ConnectionUtil.getConnection();
 		Request request = null;
@@ -89,6 +88,7 @@ public class RequestDAOimpl {
 		}
 		return list;
 	}
+	/* update request list where we have to give only valid inputs */
 	public int updateRequestlist(Request request) throws DBExeception {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -110,6 +110,7 @@ public class RequestDAOimpl {
 		}
 		return IsUpdated;		
 	}
+	/* request List*/  
  public List<Request> list() throws DBExeception{
 	 Connection con =null;
 	 PreparedStatement pst =null;

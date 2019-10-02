@@ -12,7 +12,7 @@ import com.revature.myfundingapp.connectionutil.MessageConstant;
 import com.revature.myfundingapp.dao.DonorDAO;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Donor;
-
+/*Donor register where we have to give only valid inputs*/   
 public class DonorDAOImpl implements DonorDAO  {
 	public Integer insert(Donor donor) throws DBExeception {
 		Connection con = null;
@@ -33,6 +33,7 @@ public class DonorDAOImpl implements DonorDAO  {
 			ConnectionUtil.close(con, pst, null);
 		} return rows;
 	}
+	/* Donor login where we have to give only valid inputs */  
 	public void isalreadyResister(String name) throws DBExeception{
 		Connection con=null;
 		PreparedStatement pst =null;

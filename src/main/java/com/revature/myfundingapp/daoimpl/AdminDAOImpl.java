@@ -10,7 +10,7 @@ import com.revature.myfundingapp.connectionutil.MessageConstant;
 import com.revature.myfundingapp.dao.AdminDAO;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Admin;
-
+  /* Admin login where we have to give only valid inputs */  
 public class AdminDAOImpl implements AdminDAO{
 	public Admin login(String name,String password) throws DBExeception  {
 		Connection con=null;
