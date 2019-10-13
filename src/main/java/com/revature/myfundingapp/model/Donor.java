@@ -6,6 +6,8 @@ public class Donor {
 	private Integer age; 
 	private String email;
 	private String password;
+	private Request request;
+	private Transaction transaction;
 	private Boolean isloggedIn;
 	private Boolean isallreadyExists;
 	public Integer getDonorId() {
@@ -38,16 +40,34 @@ public class Donor {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Request getRequest() {
+		return request;
+	}
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+	public Transaction getTransaction() {
+		return transaction;
+	}
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
+	public Boolean getIsloggedIn() {
+		return isloggedIn;
+	}
+	public void setIsloggedIn(Boolean isloggedIn) {
+		this.isloggedIn = isloggedIn;
+	}
 	public Boolean getIsallreadyExists() {
 		return isallreadyExists;
 	}
 	public void setIsallreadyExists(Boolean isallreadyExists) {
 		this.isallreadyExists = isallreadyExists;
 	}
-	public Boolean getIsloggedIn() {
-		return isloggedIn;
-	}
-	public void setIsloggedIn(Boolean isloggedIn) {
-		this.isloggedIn=isloggedIn;
+	@Override
+	public String toString() {
+		return "Donor [donorId=" + donorId + ", name=" + name + ", age=" + age + ", email=" + email + ", password="
+				+ password + ", request=" + request + ", transaction=" + transaction + ", isloggedIn=" + isloggedIn
+				+ ", isallreadyExists=" + isallreadyExists + "]";
 	}
 }

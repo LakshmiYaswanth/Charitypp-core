@@ -1,5 +1,6 @@
 package com.revature.myfundingapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.revature.myfundingapp.daoimpl.RequestDAOimpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
@@ -10,7 +11,7 @@ import com.revature.myfundingapp.validator.RequestValidator;
 
 public class RequestService {
 	/*  insert the fund request  where we have to give  inputs */  
-	public Integer RequestInsert(Request request) throws ServiceException {
+	public Integer requestInsert(Request request) throws ServiceException {
 		Integer rows = 0;
 		try {
 			RequestDAOimpl requestDao = new RequestDAOimpl();
@@ -25,18 +26,14 @@ public class RequestService {
 		return rows;
 	}
 	/* list request where we have to give  inputs */  
-	public List<Request> FundType(String fundtype) throws ServiceException, DBExeception {
-		Request request = new Request();
-		List<Request> list = null;
-
-		try {
-			RequestDAOimpl requestDao = new RequestDAOimpl();
-			list = requestDao.findBytype(fundtype);
-			RequestValidator Request = new RequestValidator();
-			Request.ValidatorInsert(request);
-		} catch (ValidaterException e) {
-			throw new ServiceException(e.getMessage(), e);
-		}
+	public List<Request> FundType(String fundtype) {
+		RequestDAOimpl requestDao = new RequestDAOimpl();
+			List<Request> list = null;
+				try {
+					list = requestDao.findBytype(fundtype);
+				} catch (DBExeception e) {
+					e.printStackTrace();
+				}
 		return list;
 	}
 	/* Update request where we have to give inputs */  

@@ -36,17 +36,7 @@ public class RequestTest {
 		assertNotNull(rows);
 
 	}
-	@Test
-	public void TestfindByvalue() {
-		RequestDAOimpl appdao = new RequestDAOimpl();
-		List<Request> req = new ArrayList<Request>();
-	      try {
-			req = appdao.findBytype("food");
-		} catch (DBExeception e) {
-			e.printStackTrace();
-		}
-	      System.out.println(req); 
-}
+	
 	@Test
 	public void Requestupdate() {
 	RequestDAOimpl appdao = new RequestDAOimpl();
@@ -66,6 +56,18 @@ public class RequestTest {
 		e.printStackTrace();
 	}
 }
+	@Test
+	public void RequestFundList() {
+		RequestDAOimpl appdao = new RequestDAOimpl();
+		  List<Request> req = null;
+	      try {
+	    	   req= new ArrayList<Request>();
+			req = appdao.findBytype("Food");
+		} catch (DBExeception e) {
+			e.printStackTrace();
+		}
+	      System.out.println(req); 
+	}
 	@Test
 	public void RequestList() {
 		RequestDAOimpl appdao = new RequestDAOimpl();

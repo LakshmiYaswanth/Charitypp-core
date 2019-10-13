@@ -8,10 +8,9 @@ import java.util.List;
 import org.junit.Test;
 
 import com.revature.myfundingapp.daoimpl.DonorDAOImpl;
-import com.revature.myfundingapp.daoimpl.RequestDAOimpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Donor;
-import com.revature.myfundingapp.model.Request;
+
 
 public class RegisterDonor {
 	@Test
@@ -51,6 +50,18 @@ public class RegisterDonor {
 	}
       System.out.println(donor);    
 }	
+@Test
+public void fundinglist() throws DBExeception{
+	DonorDAOImpl appdao = new DonorDAOImpl();
+	List<Donor> donor = new ArrayList<Donor>();
+      try {
+		donor = appdao.donorFundinglist("rakesh");
+	} catch (DBExeception e) {
+		e.printStackTrace();
+	}
+      System.out.println(donor);
+	
+}
 	
 }
 

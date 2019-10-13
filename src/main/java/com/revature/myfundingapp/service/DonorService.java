@@ -2,20 +2,24 @@ package com.revature.myfundingapp.service;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.myfundingapp.daoimpl.DonorDAOImpl;
+import com.revature.myfundingapp.daoimpl.RequestDAOimpl;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.exceptions.ServiceException;
 import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Donor;
-import com.revature.myfundingapp.validator.DonorloginValidator;
+import com.revature.myfundingapp.model.Request;
+import com.revature.myfundingapp.validator.DonorValidator;
+import com.revature.myfundingapp.validator.RequestValidator;
 /* Donor Register where we have to give  inputs */  
-public class DonorloginService {
-	public int DonorInsert(Donor donor) throws ServiceException {
+public class DonorService {
+	public int donorInsert(Donor donor) throws ServiceException {
 		Integer rows = null;
 		try {
-			DonorloginValidator donorValidator= new DonorloginValidator();
+			DonorValidator donorValidator= new DonorValidator();
 			DonorDAOImpl fundingappDao=new DonorDAOImpl ();
 			donorValidator.ValidatorInsert(donor);
 			rows = fundingappDao.insert(donor);
@@ -33,7 +37,7 @@ public class DonorloginService {
 
 		Donor donor = null;
 			try {
-				DonorloginValidator donorValidator= new DonorloginValidator();
+				DonorValidator donorValidator= new DonorValidator();
 				DonorDAOImpl fundingappDao=new DonorDAOImpl();
 				donorValidator.ValidatorLogin(name,password);
 				donor = fundingappDao.login(name, password);
@@ -58,6 +62,13 @@ public class DonorloginService {
 		}
 		return list;
 	}
+	public List<Donor> fundingList(String name) throws DBExeception {
+		List<Donor> list = null;
+		list = new ArrayList<Donor>();
+		DonorDAOImpl Dao = new DonorDAOImpl();
+		list = Dao.donorFundinglist(name);
+		return list;
 	}
+}
 
 

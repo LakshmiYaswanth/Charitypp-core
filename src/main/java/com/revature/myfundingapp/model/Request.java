@@ -7,15 +7,14 @@ public class Request{
 	private Integer requestId ;
 	private String fundType;
 	private Integer amount;
-	private String active;
 	private Integer amountneeded;
 	private LocalDate announcedDate;
 	private LocalDate expireDate;
 	private  Integer adminId ;
 	@Override
 	public String toString() {
-		return "Request [requestId=" + requestId + ", fundType=" + fundType + ", amount=" + amount + ", active="
-				+ active + ", amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate="
+		return "Request [requestId=" + requestId + ", fundType=" + fundType + ", amount=" + amount + 
+			"+ amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate="
 				+ expireDate + ", adminId=" + adminId + "]";
 	}
 	public Integer getRequestId() {
@@ -35,12 +34,6 @@ public class Request{
 	}
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-	public String getActive() {
-		return active;
-	}
-	public void setActive(String active) {
-		this.active = active;
 	}
 	public Integer getAmountneeded() {
 		return amountneeded;

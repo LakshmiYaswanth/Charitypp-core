@@ -3,14 +3,16 @@ package com.revature.myfundingapp.Testservice;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import com.revature.myfundingapp.daoimpl.RequestDAOimpl;
+import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.exceptions.ServiceException;
 import com.revature.myfundingapp.model.Donor;
 import com.revature.myfundingapp.model.Request;
-import com.revature.myfundingapp.service.DonorloginService;
 import com.revature.myfundingapp.service.RequestService;
 
 public class TestRequestService {
@@ -28,7 +30,7 @@ public class TestRequestService {
 		req.setExpireDate(Expire_date);
 		Integer Isinserted=0;
 		try {
-			 Isinserted = Service.RequestInsert(req);
+			 Isinserted = Service.requestInsert(req);
 			
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -54,6 +56,13 @@ public class TestRequestService {
 			e.printStackTrace();
 		}	
 	}
+	@Test
+	public void TestfindByvalue()  {
+		RequestService service = new RequestService();
+		List<Request> req = null;
+		req = service.FundType("food");
+		assertNotNull(req); 
+}
 	@Test
 	public void Requestlist(){
 		RequestService service=new RequestService();

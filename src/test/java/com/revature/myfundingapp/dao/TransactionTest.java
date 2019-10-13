@@ -18,11 +18,11 @@ public class TransactionTest {
 	int Isinserted = 0;
 	try {
 		Integer AmountFunded = 300;
-		Integer request_Id = 1;
-		Integer donor_Id = 1;
-		trans.setRequestId(request_Id);
+		Integer requestId = 1;
+		Integer donorId = 1;
+		trans.setRequestId(requestId);
 	    trans.setAmountfunded(AmountFunded);
-		trans.setDonorId(donor_Id);
+		trans.setDonorId(donorId);
 		Isinserted = transaction.insert(trans);
 		System.out.println(Isinserted);
 	} catch (DBExeception e) {

@@ -1,6 +1,7 @@
 package com.revature.myfundingapp.model;
 
 public class Transaction {
+	
 	private Integer requestId ;
 	private Integer donorId ;
 	private Integer amountfunded ;
@@ -28,5 +29,10 @@ public class Transaction {
 	}
 	public void setTransactionId(Integer transactionId) {
 		this.transactionId = transactionId;
+	}
+	@Override
+	public String toString() {
+		return "Transaction [requestId=" + requestId + ", donorId=" + donorId + ", amountfunded=" + amountfunded
+				+ ", transactionId=" + transactionId + "]";
 	}
 }

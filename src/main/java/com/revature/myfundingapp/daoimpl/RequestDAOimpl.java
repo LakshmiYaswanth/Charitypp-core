@@ -71,10 +71,7 @@ public class RequestDAOimpl {
 		List<Request> list = null;
 		try {
 			list =new ArrayList<Request>();
-			String sqlStmt ="Select REQUEST_Id,ANNOUNCED_DATE,FUND_TYPE,EXPIRE_DATE,AMOUNT as Target_Amount,"
-					+ "(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id))"
-					+ " as AMOUNT_NEEDED from REQUEST r where FUND_TYPE = ? and AMOUNT > IFNULL((select sum(AMOUNTFUNDED)"
-					+ " from TRANSACTION where REQUEST_Id=r.REQUEST_Id),0)";
+			String sqlStmt="Select REQUEST_Id,ANNOUNCED_DATE,FUND_TYPE,EXPIRE_DATE,AMOUNT as Target_Amount,(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id)) as AMOUNT_NEEDED,EXPIRE_DATE FROM REQUEST r where FUND_TYPE = ? AND EXPIRE_DATE >= NOW() and AMOUNT > IFNULL((select sum(AMOUNTFUNDED) from TRANSACTION whereTRANSACTION where AMOUNTFUNDED BETWEEN 0 and AMOUNT AND REQUEST_Id=r.REQUEST_Id),0)"; ;
 					
 			PreparedStatement pst = con.prepareStatement(sqlStmt);
 			pst.setString(1,fundType);
@@ -84,7 +81,7 @@ public class RequestDAOimpl {
 				list.add(request);
 			}
 		} catch (SQLException e) {
-			throw new DBExeception(MessageConstant.UNABLE_TO_FUND_REQUEST, e);
+			throw new DBExeception(MessageConstant.UNABLE_TO_REQUEST, e);
 		}
 		return list;
 	}
@@ -132,7 +129,7 @@ public class RequestDAOimpl {
 		  }
 		  }
 	  catch (SQLException e) {
-			throw new DBExeception(MessageConstant.UNABLE_TO_LIST_FUND_REQUEST, e);
+			throw new DBExeception(MessageConstant.UNABLE_TO_LIST_REQUEST, e);
 		} finally {
 			ConnectionUtil.close(con, pst, null);
 		}

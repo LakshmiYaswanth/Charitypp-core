@@ -12,6 +12,8 @@ import com.revature.myfundingapp.connectionutil.MessageConstant;
 import com.revature.myfundingapp.dao.DonorDAO;
 import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.model.Donor;
+import com.revature.myfundingapp.model.Request;
+import com.revature.myfundingapp.model.Transaction;
 /*Donor register where we have to give only valid inputs*/   
 public class DonorDAOImpl implements DonorDAO  {
 	public Integer insert(Donor donor) throws DBExeception {
@@ -34,33 +36,6 @@ public class DonorDAOImpl implements DonorDAO  {
 		} return rows;
 	}
 	/* Donor login where we have to give only valid inputs */  
-	public void isalreadyResister(String name) throws DBExeception{
-		Connection con=null;
-		PreparedStatement pst =null;
-		Donor donor=null;
-		try {
-			
-			con=ConnectionUtil.getConnection();
-			String sql="select NAME From DONOR where name = ?";
-			pst=con.prepareStatement(sql);
-			pst.setString(1,name);
-			ResultSet rs=pst.executeQuery();
-			if(rs.next()) {
-				donor=new Donor();
-				donor.setIsallreadyExists(true);
-			}
-			else
-			{
-				donor.setIsallreadyExists(false);	
-			}
-			} catch (SQLException e) {
-				throw new DBExeception(MessageConstant.EMAIL_ALREADY_EXIST, e);
-			} finally {
-				ConnectionUtil.close(con, pst, null);
-			}
-		
-	}
-
 	public Donor login(String name ,String password) throws DBExeception {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -119,7 +94,37 @@ public class DonorDAOImpl implements DonorDAO  {
 			}
 			return list;
 		}
-}
+	       public List<Donor> donorFundinglist(String name) throws DBExeception{
+	    	   Connection con = ConnectionUtil.getConnection();
+	   		 Transaction trans = null;
+	   	     Donor donor=null;
+            Request request= null;
+	   		List<Donor> list = null;
+	   		try {
+	   			String smt="select NAME,FUND_TYPE,AMOUNTFUNDED FROM DONOR d inner join TRANSACTION t on d.DONOR_ID= t.DONOR_ID inner join REQUEST r on r.REQUEST_Id= t.REQUEST_Id where NAME= ?" ; 
+	   			PreparedStatement pst = con.prepareStatement(smt);
+	   			pst.setString(1,name);
+				ResultSet rs = pst.executeQuery();
+				list = new ArrayList<Donor>();
+				while (rs.next()) {
+				
+					donor = new Donor();
+					donor.setName(rs.getString("NAME"));
+					request = new Request();
+					request.setFundType(rs.getString("FUND_TYPE"));
+					donor.setRequest(request);
+					trans = new Transaction();
+					trans.setAmountfunded(rs.getInt("AMOUNTFUNDED"));
+					donor.setTransaction(trans);
+					list.add(donor);
+				}
+			} catch (SQLException e) {
+				throw new DBExeception(MessageConstant.UNABLE_TO_REQUEST, e);
+			}
+			return list;	
+	       }
+	}
+
 
 
 

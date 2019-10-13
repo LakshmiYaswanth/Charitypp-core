@@ -5,14 +5,15 @@ import com.revature.myfundingapp.exceptions.DBExeception;
 import com.revature.myfundingapp.exceptions.ServiceException;
 import com.revature.myfundingapp.exceptions.ValidaterException;
 import com.revature.myfundingapp.model.Admin;
-import com.revature.myfundingapp.validator.AdminloginValidator;
+import com.revature.myfundingapp.validator.AdminValidator;
+
 /* Admin login where we have to give inputs */  
-public class Adminloginservice {
+public class AdminService {
 	public Admin login(String name, String password) throws ServiceException {
 		AdminDAOImpl appDao = new AdminDAOImpl();
 		Admin admin = null;
 		try {
-			AdminloginValidator adminloginValidator = new AdminloginValidator();
+			AdminValidator adminloginValidator = new AdminValidator();
 			adminloginValidator.validateLogin(name, password);
 			admin = appDao.login(name, password);
 		} catch (ValidaterException e) {
