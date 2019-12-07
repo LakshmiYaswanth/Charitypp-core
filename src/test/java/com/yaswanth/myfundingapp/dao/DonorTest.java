@@ -57,12 +57,11 @@ public void fundinglist() throws DBExeception{
 	DonorDAOImpl appdao = new DonorDAOImpl();
 	List<Donor> donor = new ArrayList<Donor>();
       try {
-		donor = appdao.donorFundinglist("rakesh");
+		donor = appdao.donorFundinglist("yaswanth");
 	} catch (DBExeception e) {
 		e.printStackTrace();
 	}
-      System.out.println(donor);
-	
+      System.out.println(donor);	
 }
 	
 }

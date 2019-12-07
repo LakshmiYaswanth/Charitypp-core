@@ -79,7 +79,7 @@ public class RequestDAOimpl {
 			request.setAnnouncedDate(announcedDate.toLocalDate());
 			request.setAmountneeded(amountneeded);
 		} catch (SQLException e) {
-		    logger.error("unable to get torows");
+		    logger.error("unable to get to rows");
 		} finally {
 			ConnectionUtil.close(con, pst, null);
 		}
@@ -96,7 +96,7 @@ public class RequestDAOimpl {
 		List<Request> list = null;
 		try {
 			list =new ArrayList<Request>();
-			String sqlStmt="Select REQUEST_Id,ANNOUNCED_DATE,FUND_TYPE,EXPIRE_DATE,AMOUNT as Target_Amount,(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id)) as AMOUNT_NEEDED,EXPIRE_DATE FROM REQUEST r where FUND_TYPE = ? AND EXPIRE_DATE >= NOW() and AMOUNT > IFNULL((select sum(AMOUNTFUNDED) from TRANSACTION whereTRANSACTION where AMOUNTFUNDED BETWEEN 0 and AMOUNT AND REQUEST_Id=r.REQUEST_Id),0)"; ;
+			String sqlStmt="Select REQUEST_Id,ANNOUNCED_DATE,FUND_TYPE,EXPIRE_DATE,AMOUNT as Target_Amount,(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id)) as AMOUNT_NEEDED,EXPIRE_DATE FROM REQUEST r where FUND_TYPE = ? AND EXPIRE_DATE and AMOUNT > IFNULL((select sum(AMOUNTFUNDED) from TRANSACTION whereTRANSACTION where AMOUNTFUNDED BETWEEN 0 and AMOUNT AND REQUEST_Id=r.REQUEST_Id),0)";
 					
 			PreparedStatement pst = con.prepareStatement(sqlStmt);
 			pst.setString(1,fundType);
@@ -112,10 +112,13 @@ public class RequestDAOimpl {
 		return list;
 	}
 	 /**
-     * This  method will be shown in test case to Request List for a given name in the application
-     * @param name
+     * This  method will be shown in test case to updating the Fund request in the application
+     * @param fundtype
+     * @param amount
+     * @param expireDate
+     * @param adminId
 	 * @throws DBException
-	 * @return RequestListobj
+	 * @return DonorListobj
      */
 	public int updateRequestlist(Request request) throws DBExeception {
 		Connection con = null;
@@ -139,14 +142,11 @@ public class RequestDAOimpl {
 		}
 		return IsUpdated;		
 	}
-	 /**
-     * This  method will be shown in test case to updating the Fund request in the application
-     * @param fundtype
-     * @param amount
-     * @param expireDate
-     * @param adminId
-	 * @throws DBException
-	 * @return DonorListobj
+	
+	/**
+     * This  method will be shown in test case to Request List for a given name in the application
+     * @param name
+	 * @return list
      */
  public List<Request> list() throws DBExeception{
 	 Connection con =null;

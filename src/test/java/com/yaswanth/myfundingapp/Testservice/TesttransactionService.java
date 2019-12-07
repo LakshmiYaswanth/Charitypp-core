@@ -22,7 +22,6 @@ public class TesttransactionService {
 		Integer Isinserted=0;
 		try {
 			 Isinserted = service.insertservice(trans);
-			
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

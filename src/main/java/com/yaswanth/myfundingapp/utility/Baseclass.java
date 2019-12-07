@@ -18,7 +18,7 @@ public class Baseclass {
 	 */
 	public static Properties getProperties() {
 		try {
-			InputStream input = new FileInputStream("src/main/resources/configuration.properties");
+			InputStream input = Baseclass.class.getResourceAsStream("/configuration.properties");
 			prop = new Properties();
 			prop.load(input);
 		} catch (IOException ex) {

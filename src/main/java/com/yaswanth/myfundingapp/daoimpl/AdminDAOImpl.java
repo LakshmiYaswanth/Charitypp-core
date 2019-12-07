@@ -50,7 +50,7 @@ public class AdminDAOImpl implements AdminDAO{
 	          catch (SQLException e) {
 				throw new DBExeception(MessageConstant.UNABLE_TO_LOGIN,e);
 			} finally {
-				ConnectionUtil.close(con, pst,rs);
+			    ConnectionUtil.close(con, pst,rs);
 			}
 			return admin;
 		
