@@ -1,16 +1,16 @@
 # fundindApp-core
 # CharityApp
-. Synopsis
-. The objective to create this project for two kind of peoples. One is who need money and another one is who want to contribute. These are all things happens via this application on online.
+# Synopsis
+1. The objective to create this project for two kind of peoples. One is who need money and another one is who want to contribute. These are all things happens via this application on online.
 Applications
 # Completed
 # Admin
- . Admin can login.
- . Admin can see list of donors.
- . Admin can see donor funded request details.
- . Admin can update fund request.
- . Admin can raise request.
+ 1. Admin can login.
+ 2. Admin can see list of donors.
+ 3. Admin can see donor funded request details.
+ 4. Admin can update fund request.
+ 5. Admin can raise request.
 # Donor
- . Donor can register.
- . Donor can login.
- . Donor can contribute.
+1. Donor can register.
+2. Donor can login.
+3. Donor can contribute.
