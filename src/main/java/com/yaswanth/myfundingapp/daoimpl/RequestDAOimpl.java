@@ -17,9 +17,21 @@ import com.yaswanth.myfundingapp.utility.MessageConstant;
 
 
 
+/**
+ * @author yaswanth
+ * This class consists of fund request operation
+ */
 public class RequestDAOimpl {
-	Logger logger = Logger.getLogger("RequestDAOimpl.class");
-	/* Request insert where we have to give only valid inputs */  
+	 /**
+     * This  method will be shown in test case to inserting the Fund request in the application
+     * @param fundtype
+     * @param amount
+     * @param expireDate
+     * @param adminId
+	 * @throws DBException
+	 * @return DonorListobj
+     */
+	Logger logger = Logger.getLogger("RequestDAOimpl.class");  
 	public int insert(Request request) throws DBExeception{
 			Connection con = null;
 			PreparedStatement pst = null;
@@ -42,7 +54,12 @@ public class RequestDAOimpl {
 				ConnectionUtil.close(con, pst, null);
 			} return row;
 	}
-	/* Request to row*/  
+	 /**
+     * This method will be shown in test case to Fund request to rows for a given name in the application
+     * @param Result set
+	 * @throws DBException
+	 * @return DonorListobj
+     */
 	public Request toRow(ResultSet rs) {
 		Connection con=null;
 		PreparedStatement pst=null;
@@ -68,7 +85,11 @@ public class RequestDAOimpl {
 		}
 		return request;
 	}
-	/* List fund type where we have to give only valid inputs */  
+	/** List fund type where we have to give only valid inputs 
+	 * @param fundType
+	 * @return
+	 * @throws DBExeception
+	 */
 	public List<Request> findBytype(String fundType)throws DBExeception {
 		Connection con = ConnectionUtil.getConnection();
 		Request request = null;
@@ -90,7 +111,12 @@ public class RequestDAOimpl {
 		}
 		return list;
 	}
-	/* update request list where we have to give only valid inputs */
+	 /**
+     * This  method will be shown in test case to Request List for a given name in the application
+     * @param name
+	 * @throws DBException
+	 * @return RequestListobj
+     */
 	public int updateRequestlist(Request request) throws DBExeception {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -113,7 +139,15 @@ public class RequestDAOimpl {
 		}
 		return IsUpdated;		
 	}
-	/* request List*/  
+	 /**
+     * This  method will be shown in test case to updating the Fund request in the application
+     * @param fundtype
+     * @param amount
+     * @param expireDate
+     * @param adminId
+	 * @throws DBException
+	 * @return DonorListobj
+     */
  public List<Request> list() throws DBExeception{
 	 Connection con =null;
 	 PreparedStatement pst =null;

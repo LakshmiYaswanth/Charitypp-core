@@ -12,14 +12,25 @@ import com.yaswanth.myfundingapp.model.Transaction;
 import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
 
-/* insert Transaction where we have to give only valid inputs */  
+  
+/**
+ * @author yaswanth
+ * This class consists of Transaction operation
+ */
 public class TransactionDAOImpl implements TransactionDAO {
+	 /**
+     * This  method will be shown in test case to inserting the Transaction details in the application
+     * @param amountfunded
+     * @param donorId
+     * @param requestId
+	 * @throws DBException
+	 * @return rows
+     */
 	Logger logger=Logger.getLogger(TransactionDAOImpl.class);
        public int insert(Transaction trans) throws DBExeception{
 		Connection con=null;
 		PreparedStatement pst=null;
 		Integer rows=0;
-		String error = null;
 		try {
 			con=ConnectionUtil.getConnection();
 			String sql="INSERT INTO TRANSACTION(REQUEST_Id,DONOR_Id,AMOUNTFUNDED) values(?,?,?) ";

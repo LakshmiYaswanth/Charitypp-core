@@ -15,8 +15,8 @@ public class RequestService {
 		Integer rows = 0;
 		try {
 			RequestDAOimpl requestDao = new RequestDAOimpl();
-			RequestValidator Request = new RequestValidator();
-			Request.ValidatorInsert(request);
+			RequestValidator requestobj = new RequestValidator();
+			requestobj.ValidatorInsert(request);
 			rows = requestDao.insert(request);
 		} catch (ValidaterException e) {
 			throw new ServiceException(e.getMessage(), e);

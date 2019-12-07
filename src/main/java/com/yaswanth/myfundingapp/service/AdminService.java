@@ -6,8 +6,7 @@ import com.yaswanth.myfundingapp.exceptions.ServiceException;
 import com.yaswanth.myfundingapp.exceptions.ValidaterException;
 import com.yaswanth.myfundingapp.model.Admin;
 import com.yaswanth.myfundingapp.validator.AdminValidator;
-
-/* Admin login where we have to give inputs */  
+  
 public class AdminService {
 	public Admin login(String name, String password) throws ServiceException {
 		AdminDAOImpl appDao = new AdminDAOImpl();

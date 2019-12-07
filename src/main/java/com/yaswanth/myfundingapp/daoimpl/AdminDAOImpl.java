@@ -14,9 +14,20 @@ import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
 
 
-  /* Admin login where we have to give only valid inputs */  
+ 
+/**
+ * @author yaswanth
+ * This class consists of admin login 
+ *
+ */
 public class AdminDAOImpl implements AdminDAO{
 	Logger logger = Logger.getLogger("AdminDAOImpl.class");
+	 /**
+     * This  method will be shown in test case to login in the application
+     * @param strUserName
+     * @param strPasword
+	 * @throws DBException 
+     */
 	public Admin login(String name,String password) throws DBExeception  {
 		Connection con=null;
 		PreparedStatement pst =null;

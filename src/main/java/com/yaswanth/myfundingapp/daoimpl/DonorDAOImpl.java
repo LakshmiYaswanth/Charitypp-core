@@ -17,10 +17,21 @@ import com.yaswanth.myfundingapp.model.Transaction;
 import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
 
-
-/*Donor register where we have to give only valid inputs*/   
+/**
+* @author yaswanth
+* This class consists of donor operations
+*/   
 public class DonorDAOImpl implements DonorDAO  {
 	Logger logger = Logger.getLogger("DonorDAOImpl.class");
+	 /**
+     * This  method will be shown in test case to Registeration in the application
+     * @param strUserName
+     * @param strPasword
+     * @param StrEmail
+     * @parm strAge
+	 * @throws DBException 
+	 * @return donorObj
+     */
 	public Integer insert(Donor donor) throws DBExeception {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -43,8 +54,16 @@ public class DonorDAOImpl implements DonorDAO  {
 		return rows;
 	}
 
-	/* Donor login where we have to give only valid inputs */
-	public Donor login(String name, String password) throws DBExeception {
+	 /**
+     * This  method will be shown in test case to login in the application
+     * @param strUserName
+     * @param strPasword
+     * @param StrEmail
+     * @parm strAge
+	 * @throws DBException 
+	 * @return donorobj
+     */
+	public Donor login(String email, String password) throws DBExeception {
 		
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -54,7 +73,7 @@ public class DonorDAOImpl implements DonorDAO  {
 			con = ConnectionUtil.getConnection();
 			String sql = "select DONOR_ID,AGE,NAME,EMAIL,PASSWORD from DONOR where EMAIL=? and PASSWORD =?";
 			pst = con.prepareStatement(sql);
-			pst.setString(1, name);
+			pst.setString(1, email);
 			pst.setString(2, password);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
@@ -73,7 +92,11 @@ public class DonorDAOImpl implements DonorDAO  {
 		}
 		return donor;
 	}
-
+	 /**
+     * This  method will be shown in test case to Donor List in the application
+	 * @throws DBException
+	 * @return DonorList 
+     */
 	public List<Donor> donorlist() throws DBExeception {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -101,7 +124,12 @@ public class DonorDAOImpl implements DonorDAO  {
 		}
 		return list;
 	}
-
+	 /**
+     * This  method will be shown in test case to Donor List for a given name in the application
+     * @param name
+	 * @throws DBException
+	 * @return DonorListobj
+     */
 	public List<Donor> donorFundinglist(String name) throws DBExeception {
 		Connection con = ConnectionUtil.getConnection();
 		Transaction trans = null;
