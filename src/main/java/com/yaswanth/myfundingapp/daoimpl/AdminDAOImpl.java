@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import org.apache.log4j.Logger;
 
 import com.yaswanth.myfundingapp.dao.AdminDAO;
@@ -24,8 +25,8 @@ public class AdminDAOImpl implements AdminDAO{
 	Logger logger = Logger.getLogger("AdminDAOImpl.class");
 	 /**
      * This  method will be shown in test case to login in the application
-     * @param strUserName
-     * @param strPasword
+     * @param string UserName
+     * @param string Password
 	 * @throws DBException 
      */
 	public Admin login(String name,String password) throws DBExeception  {
@@ -34,17 +35,18 @@ public class AdminDAOImpl implements AdminDAO{
 		Admin admin=null;
 		ResultSet rs=null;
 		try {
-			admin=new Admin();
+			
 			con=ConnectionUtil.getConnection();
 			String sql="select ADMIN_ID,NAME,PASSWORD From ADMIN where NAME = ? and PASSWORD = ?";
 			pst=con.prepareStatement(sql);
 			pst.setString(1,name);
-			pst.setString (2,password);
-			ResultSet rs1=pst.executeQuery();
-			if(rs1.next()) {
-				admin.setAdminId(rs1.getInt("ADMIN_ID"));
-				admin.setName(rs1.getString("NAME"));
-				admin.setPassword(rs1.getString("PASSWORD"));
+			pst.setString(2,password);
+			 rs=pst.executeQuery();
+			if(rs.next()) {
+				admin=new Admin();
+				admin.setAdminId(rs.getInt("ADMIN_ID"));
+				admin.setName(rs.getString("NAME"));
+				admin.setPassword(rs.getString("PASSWORD"));
 				logger.info("login was Successfull");
 			}}
 	          catch (SQLException e) {
@@ -53,8 +55,6 @@ public class AdminDAOImpl implements AdminDAO{
 			    ConnectionUtil.close(con, pst,rs);
 			}
 			return admin;
-		
 	}
 	
-
 }

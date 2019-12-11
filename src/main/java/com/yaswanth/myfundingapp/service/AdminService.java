@@ -15,6 +15,9 @@ public class AdminService {
 			AdminValidator adminloginValidator = new AdminValidator();
 			adminloginValidator.validateLogin(name, password);
 			admin = appDao.login(name, password);
+			if ( admin == null) {
+				throw new ServiceException("Invalid Login");
+			}
 		} catch (ValidaterException e) {
 			throw new ServiceException(e.getMessage(), e);
 		} catch (DBExeception e) {

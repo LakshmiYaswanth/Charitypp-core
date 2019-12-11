@@ -1,7 +1,6 @@
 package com.yaswanth.myfundingapp.utility;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,7 +13,7 @@ public class Baseclass {
 	/**
 	 * This function is to read properties file
 	 *
-	 * @return propertires
+	 * @return properties
 	 */
 	public static Properties getProperties() {
 		try {

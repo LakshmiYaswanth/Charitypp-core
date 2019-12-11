@@ -72,5 +72,16 @@ public class TestRequestService {
 		}
         assertNotNull(request);	
 	}
+	@Test
+	public void RequesFundtlist(){
+		RequestService service=new RequestService();
+        List<Request> request=null;
+        try {
+			request=service.Fundtypelist();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+        assertNotNull(request);	
+	}
 }
 	

@@ -81,4 +81,15 @@ public class RequestTest {
 		}
 	      System.out.println(req); 
 	}
+	@Test
+	public void RequestFundTypeList() {
+		RequestDAOimpl appdao = new RequestDAOimpl();
+		List<Request> req = new ArrayList<Request>();
+	      try {
+			req = appdao.selectFundType();
+		} catch (DBExeception e) {
+			e.printStackTrace();
+		}
+	      System.out.println(req); 
+	}
 }

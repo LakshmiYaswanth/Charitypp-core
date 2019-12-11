@@ -63,4 +63,15 @@ public class RequestService {
 		}
 		return req;
 	}
+	public List<Request> Fundtypelist() throws ServiceException {
+		List<Request> req  = null;
+		try {
+			RequestDAOimpl request=new RequestDAOimpl();
+			req = request.selectFundType();
+		} catch (DBExeception e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+		return req;
+	}
+	
 }

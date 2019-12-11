@@ -13,5 +13,6 @@ public interface RequestDAO {
    public List<Request> findBytype(int id)throws DBExeception;
    public int updateRequestlist(Request request) throws DBExeception;
    public List<Request> list(Request request) throws DBExeception;
+   public List<Request> selectFundType() throws DBExeception;
 
 }

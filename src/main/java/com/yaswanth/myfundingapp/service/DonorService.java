@@ -39,7 +39,9 @@ public class DonorService {
 				DonorDAOImpl fundingappDao=new DonorDAOImpl();
 				donorValidator.ValidatorLogin(email,password);
 				donor = fundingappDao.login(email, password);
-
+				if ( donor == null) {
+					throw new ServiceException("Invalid Login");
+				}
 			} catch (ValidaterException e) {
 				throw new ServiceException(e.getMessage(), e);
 			} catch(DBExeception e)

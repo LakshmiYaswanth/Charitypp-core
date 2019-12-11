@@ -11,7 +11,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
+import com.yaswanth.myfundingapp.model.Donor;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.model.Transaction;
 import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
 
@@ -101,7 +103,7 @@ public class RequestDAOimpl {
 			PreparedStatement pst = con.prepareStatement(sqlStmt);
 			pst.setString(1,fundType);
 			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
+			while(rs.next()) {
 				request = toRow(rs);
 				list.add(request);
 				logger.info("List of the fund Request by type");
@@ -175,6 +177,27 @@ public class RequestDAOimpl {
 			ConnectionUtil.close(con, pst, null);
 		}
 		return list;
+	}
+ public List<Request> selectFundType() throws DBExeception{
+		Connection con = ConnectionUtil.getConnection();
+		Request request = null;
+		List<Request> list = null;
+		try {
+			String smt = "SELECT DISTINCT FUND_TYPE FROM REQUEST";
+			PreparedStatement pst = con.prepareStatement(smt);
+			ResultSet rs = pst.executeQuery();
+			
+			list = new ArrayList<Request>();
+			while (rs.next()) {
+				request = new Request();
+				request.setFundType(rs.getString("FUND_TYPE"));
+				 list.add(request);
+			}
+		} catch (SQLException e) {
+			throw new DBExeception(MessageConstant.UNABLE_TO_REQUEST, e);
+		}
+		return list;
+		
 	}
 }
 

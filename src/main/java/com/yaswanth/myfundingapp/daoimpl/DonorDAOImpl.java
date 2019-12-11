@@ -25,10 +25,10 @@ public class DonorDAOImpl implements DonorDAO  {
 	Logger logger = Logger.getLogger("DonorDAOImpl.class");
 	 /**
      * This  method will be shown in test case to Registeration in the application
-     * @param strUserName
-     * @param strPasword
-     * @param StrEmail
-     * @parm strAge
+     * @param string UserName
+     * @param string Pasword
+     * @param String Email
+     * @parm string Age
 	 * @throws DBException 
 	 * @return donorObj
      */
@@ -64,12 +64,11 @@ public class DonorDAOImpl implements DonorDAO  {
 	 * @return donorobj
      */
 	public Donor login(String email, String password) throws DBExeception {
-		
 		Connection con = null;
 		PreparedStatement pst = null;
 		Donor donor = null;
 		try {
-			donor = new Donor();
+			
 			con = ConnectionUtil.getConnection();
 			String sql = "select DONOR_ID,AGE,NAME,EMAIL,PASSWORD from DONOR where EMAIL=? and PASSWORD =?";
 			pst = con.prepareStatement(sql);
@@ -77,6 +76,7 @@ public class DonorDAOImpl implements DonorDAO  {
 			pst.setString(2, password);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
+				donor = new Donor();
 				donor.setDonorId(rs.getInt("DONOR_ID"));
 				donor.setAge(rs.getInt("AGE"));
 				donor.setName(rs.getString("NAME"));
@@ -84,7 +84,6 @@ public class DonorDAOImpl implements DonorDAO  {
 				donor.setPassword(rs.getString("PASSWORD"));
 				logger.info("Donor login was succesfull");
 			}
-
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_LOGIN, e);
 		} finally {
@@ -107,7 +106,6 @@ public class DonorDAOImpl implements DonorDAO  {
 			pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			list = new ArrayList<Donor>();
-
 			while (rs.next()) {
 				Donor donor = new Donor();
 				donor.setDonorId(rs.getInt("DONOR_ID"));
@@ -159,6 +157,7 @@ public class DonorDAOImpl implements DonorDAO  {
 		}
 		return list;
 	}
+	
 }
 
 
