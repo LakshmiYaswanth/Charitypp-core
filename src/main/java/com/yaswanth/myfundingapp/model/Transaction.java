@@ -1,11 +1,15 @@
 package com.yaswanth.myfundingapp.model;
 
+import java.sql.Date;
+
+
 public class Transaction {
 	
 	private Integer requestId ;
 	private Integer donorId ;
 	private Integer amountfunded ;
 	private Integer transactionId ;
+	private Date fundedDate;
 	public Integer getRequestId() {
 		return requestId;
 	}
@@ -33,6 +37,13 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction [requestId=" + requestId + ", donorId=" + donorId + ", amountfunded=" + amountfunded
-				+ ", transactionId=" + transactionId + "]";
+				+ ", transactionId=" + transactionId + ", FundedDate=" + fundedDate + "]";
 	}
+	public Date getFundedDate() {
+		return fundedDate;
+	}
+	public void setFundedDate(Date fundedDate) {
+		this.fundedDate = fundedDate;
+	}
+	
 }

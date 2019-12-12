@@ -19,8 +19,8 @@ public class TestDonorService {
 	public void DonorLoginTest() throws ServiceException
 	{
 		DonorService service=new DonorService();
-		String name = "yaswanth";
-		String password = "yaswanth";
+		String name = "yaswanth23@gmail.com";
+		String password = "yasw13";
 		Donor donor=null;
 		donor = service.login(name,password);
 		assertNotNull(donor);
@@ -28,10 +28,10 @@ public class TestDonorService {
 	}
 	@Test
 	public void testRegister() throws DBExeception, ServiceException {
-		String name = "yaswanth";
+		String name = "yaswanthlakshmi";
 		Integer age = 21;
-		String email = "yaswanth@GH";
-		String password = "IloveJ";
+		String email = "ramesh@gmail.com";
+		String password = "yaswanth";
 		DonorService service=new DonorService();
          Donor donor= new Donor();
 		donor.setName(name);
@@ -56,7 +56,7 @@ public class TestDonorService {
 	public void Donorfundinglist() throws DBExeception{
 		DonorService service=new DonorService();
         List<Donor> donor= new ArrayList<Donor>();
-        donor = service.fundingList("yaswanth");
+        donor = service.fundingList("ram1@gmail.com");
         assertNotNull(donor);	
 	}
 

@@ -17,19 +17,19 @@ import com.yaswanth.myfundingapp.model.Donor;
 public class DonorTest {
 	@Test
 	public void test() throws DBExeception {
-		String name = "yaswanth";
-		String password = "yaswanth";
+		String email = "yaswanth23@gmail.com";
+		String password = "yasw13";
 		DonorDAOImpl appdao = new DonorDAOImpl();
-		Donor donor = appdao.login(name, password);
+		Donor donor = appdao.login(email, password);
 		System.out.println(donor);
 		assertNotNull(donor);
 	}
 @Test
 	public void testRegister() throws DBExeception {
-		String name = "yaswanth";
+		String name = "rajesh";
 		Integer age = 21;
-		String email = "yaswanth23@gmail.com";
-		String password = "yasw13";
+		String email = "rajesh2@gmail.com";
+		String password = "rajesh";
 		DonorDAOImpl appdao = new DonorDAOImpl();
 		Donor donor = new Donor();
 		donor.setName(name);
@@ -50,18 +50,28 @@ public class DonorTest {
 	} catch (DBExeception e) {
 		e.printStackTrace();
 	}
-      System.out.println(donor);    
+      assertNotNull(donor);    
 }	
 @Test
-public void fundinglist() throws DBExeception{
+public void fundingList() throws DBExeception{
 	DonorDAOImpl appdao = new DonorDAOImpl();
 	List<Donor> donor = new ArrayList<Donor>();
       try {
-		donor = appdao.donorFundinglist("yaswanth");
+		donor = appdao.donorFundinglist("ram@gmail.com");
 	} catch (DBExeception e) {
 		e.printStackTrace();
 	}
-      System.out.println(donor);	
+      assertNotNull(donor);	
+}
+@Test
+public void testEmail() throws DBExeception{
+	String email="yaswanth@12gmail.com";
+	DonorDAOImpl appdao = new DonorDAOImpl();
+	Donor donor=new Donor();
+	donor.setEmail(email);
+	List<Donor> rows = appdao.emailAlreadyExits(email);
+	assertNotNull(rows);
+	
 }
 	
 }

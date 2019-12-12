@@ -3,6 +3,7 @@ package com.yaswanth.myfundingapp.model;
 public class Admin {
 	private Integer adminId;
 	private String name;
+	private String email;
 	private String password;
 	public Integer getAdminId() {
 		return adminId;
@@ -24,7 +25,13 @@ public class Admin {
 	}
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", name=" + name + ", password=" + password + "]";
+		return "Admin [adminId=" + adminId + ", name=" + name + ", email=" + email + ",password=" + password + "]";
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

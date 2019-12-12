@@ -2,11 +2,14 @@ package com.yaswanth.myfundingapp.service;
 
 import java.util.List;
 
+import com.yaswanth.myfundingapp.daoimpl.DonorDAOImpl;
 import com.yaswanth.myfundingapp.daoimpl.RequestDAOimpl;
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
 import com.yaswanth.myfundingapp.exceptions.ServiceException;
 import com.yaswanth.myfundingapp.exceptions.ValidaterException;
+import com.yaswanth.myfundingapp.model.Donor;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.validator.DonorValidator;
 import com.yaswanth.myfundingapp.validator.RequestValidator;
 
 public class RequestService {
@@ -72,6 +75,18 @@ public class RequestService {
 			throw new ServiceException(e.getMessage(), e);
 		}
 		return req;
+	}
+	public int status(int requestId) throws ServiceException {
+		Integer rows = null;
+		try {
+		
+			RequestDAOimpl fundingappDao=new RequestDAOimpl ();
+			rows = fundingappDao.StatusCheck(requestId);
+		} catch (DBExeception e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+		return rows;
+		
 	}
 	
 }

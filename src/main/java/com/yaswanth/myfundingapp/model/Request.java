@@ -11,11 +11,13 @@ public class Request{
 	private LocalDate announcedDate;
 	private LocalDate expireDate;
 	private  Integer adminId ;
+	private String description;
+	private String status;
 	@Override
 	public String toString() {
 		return "Request [requestId=" + requestId + ", fundType=" + fundType + ", amount=" + amount + 
 			"+ amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate="
-				+ expireDate + ", adminId=" + adminId + "]";
+				+ expireDate + ", adminId=" + adminId + ",description=" + description+ ",status=" + status +"]";
 	}
 	public Integer getRequestId() {
 		return requestId;
@@ -58,5 +60,17 @@ public class Request{
 	}
 	public void setAdminId(Integer adminId) {
 		this.adminId = adminId;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

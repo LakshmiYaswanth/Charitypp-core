@@ -62,13 +62,14 @@ public class DonorService {
 		}
 		return list;
 	}
-	public List<Donor> fundingList(String name) throws DBExeception {
+	public List<Donor> fundingList(String email) throws DBExeception {
 		List<Donor> list = null;
 		list = new ArrayList<Donor>();
 		DonorDAOImpl donor = new DonorDAOImpl();
-		list = donor.donorFundinglist(name);
+		list = donor.donorFundinglist(email);
 		return list;
 	}
+	
 }
 
 

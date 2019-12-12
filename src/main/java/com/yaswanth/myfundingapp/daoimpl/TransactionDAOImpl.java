@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
-
 import com.yaswanth.myfundingapp.dao.TransactionDAO;
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
 import com.yaswanth.myfundingapp.model.Transaction;
@@ -26,7 +24,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 	 * @throws DBException
 	 * @return rows
      */
-	Logger logger=Logger.getLogger(TransactionDAOImpl.class);
        public int insert(Transaction trans) throws DBExeception{
 		Connection con=null;
 		PreparedStatement pst=null;
@@ -39,7 +36,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 			pst.setInt(3, trans.getAmountfunded());
 			pst.setInt(1, trans.getRequestId());
 			rows=pst.executeUpdate();
-			logger.info("Amount is funded to the Fund Request");
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_INSERT, e);
 		} finally {

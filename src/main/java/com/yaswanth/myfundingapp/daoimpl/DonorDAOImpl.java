@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 
 import com.yaswanth.myfundingapp.dao.DonorDAO;
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
@@ -22,7 +22,6 @@ import com.yaswanth.myfundingapp.utility.MessageConstant;
 * This class consists of donor operations
 */   
 public class DonorDAOImpl implements DonorDAO  {
-	Logger logger = Logger.getLogger("DonorDAOImpl.class");
 	 /**
      * This  method will be shown in test case to Registeration in the application
      * @param string UserName
@@ -45,7 +44,6 @@ public class DonorDAOImpl implements DonorDAO  {
 			pst.setString(3, donor.getPassword());
 			pst.setInt(4, donor.getAge());
 			rows = pst.executeUpdate();
-			logger.info("Donor Registered successfully");
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_REGISTER, e);
 		} finally {
@@ -82,7 +80,6 @@ public class DonorDAOImpl implements DonorDAO  {
 				donor.setName(rs.getString("NAME"));
 				donor.setEmail(rs.getString("EMAIL"));
 				donor.setPassword(rs.getString("PASSWORD"));
-				logger.info("Donor login was succesfull");
 			}
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_LOGIN, e);
@@ -113,7 +110,6 @@ public class DonorDAOImpl implements DonorDAO  {
 				donor.setName(rs.getString("NAME"));
 				donor.setEmail(rs.getString("EMAIL"));
 				list.add(donor);
-				logger.info("List of the Donors");
 			}
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_LIST_DONOR, e);
@@ -128,32 +124,62 @@ public class DonorDAOImpl implements DonorDAO  {
 	 * @throws DBException
 	 * @return DonorListobj
      */
-	public List<Donor> donorFundinglist(String name) throws DBExeception {
+	public List<Donor> donorFundinglist(String email) throws DBExeception {
 		Connection con = ConnectionUtil.getConnection();
 		Transaction trans = null;
 		Donor donor = null;
 		Request request = null;
 		List<Donor> list = null;
 		try {
-			String smt = "select NAME,FUND_TYPE,AMOUNTFUNDED FROM DONOR d inner join TRANSACTION t on d.DONOR_ID= t.DONOR_ID inner join REQUEST r on r.REQUEST_Id= t.REQUEST_Id where NAME= ?";
+			String smt = "select EMAIL,NAME,FUND_TYPE,AMOUNTFUNDED,FUNDED_DATE FROM DONOR d inner join TRANSACTION t on d.DONOR_ID= t.DONOR_ID inner join REQUEST r on r.REQUEST_Id= t.REQUEST_Id where EMAIL=?";
 			PreparedStatement pst = con.prepareStatement(smt);
-			pst.setString(1, name);
+			pst.setString(1, email);
 			ResultSet rs = pst.executeQuery();
 			list = new ArrayList<Donor>();
 			while (rs.next()) {
 				donor = new Donor();
 				donor.setName(rs.getString("NAME"));
+				donor.setEmail(rs.getString("EMAIL"));
 				request = new Request();
 				request.setFundType(rs.getString("FUND_TYPE"));
 				donor.setRequest(request);
 				trans = new Transaction();
 				trans.setAmountfunded(rs.getInt("AMOUNTFUNDED"));
 				donor.setTransaction(trans);
+				trans.setFundedDate(rs.getDate("FUNDED_DATE"));
+				donor.setTransaction(trans);
 				list.add(donor);
-				logger.info("List of the Funded Donors");
 			}
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_REQUEST, e);
+		}
+		return list;
+	}
+	public List<Donor> emailAlreadyExits(String Email) throws DBExeception{
+		Connection con=null;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		List<Donor> list=null;
+		 boolean row=false;
+		try {
+			list=new ArrayList<Donor>();
+			con=ConnectionUtil.getConnection();
+			String sql="Select EMAIL FROM DONOR WHERE EMAIL=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1,Email);
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				 Donor donor=new Donor();
+				 donor.setEmail(rs.getString("EMAIL"));
+				 row=list.add(donor);
+				 if(row==true) {
+					 System.out.println("Email already Exits");
+				 } 
+			}}
+        catch (SQLException e) {
+			throw new DBExeception(MessageConstant.INVALID_EMAIL,e);
+		} finally {
+		    ConnectionUtil.close(con, pst,rs);
 		}
 		return list;
 	}
