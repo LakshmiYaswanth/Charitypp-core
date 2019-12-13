@@ -7,6 +7,13 @@ public class Donor {
 	private String email;
 	private String password;
 	private Request request;
+	private RequestType requesttype;
+	public RequestType getRequesttype() {
+		return requesttype;
+	}
+	public void setRequesttype(RequestType requesttype) {
+		this.requesttype = requesttype;
+	}
 	private Transaction transaction;
 	public Integer getDonorId() {
 		return donorId;
@@ -53,7 +60,8 @@ public class Donor {
 	@Override
 	public String toString() {
 		return "Donor [donorId=" + donorId + ", name=" + name + ", age=" + age + ", email=" + email + ", password="
-				+ password + ", request=" + request + ", transaction=" + transaction + "]";
+				+ password + ", request=" + request + ", requesttype=" + requesttype + ", transaction=" + transaction
+				+ "]";
 	}
 	
 }

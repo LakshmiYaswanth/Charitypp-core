@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.model.RequestType;
 import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
 
@@ -36,10 +37,10 @@ public class RequestDAOimpl {
 			int row = 0;
 			try {
 				con = ConnectionUtil.getConnection();
-				String sql=" INSERT INTO REQUEST (FUND_TYPE,AMOUNT,EXPIRE_DATE,ADMIN_Id,DESCRIPTION) VALUES (?,?,?,?,?)";
+				String sql=" INSERT INTO REQUEST (FUNDTYPE_ID,AMOUNT,EXPIRE_DATE,ADMIN_Id,DESCRIPTION) VALUES (?,?,?,?,?)";
 				pst=con.prepareStatement(sql);
 				Date expireDate = Date.valueOf(request.getExpireDate());
-				pst.setString(1, request.getFundType());
+				pst.setInt(1, request.getFundTypeId());
 				pst.setInt(2, request.getAmount());
 			    pst.setDate(3, expireDate);
 				pst.setInt(4, request.getAdminId());
@@ -63,18 +64,21 @@ public class RequestDAOimpl {
 		Request request=null;
 		try {
             Integer requestId=rs.getInt("REQUEST_ID");
-			String fundType = rs.getString("FUND_TYPE");
+			Integer fundTypeId = rs.getInt("FUNDTYPE_ID");
 			Integer amount = rs.getInt("Target_Amount");
 			Date expireDate=rs.getDate("EXPIRE_DATE");
 			Date announcedDate=rs.getDate("ANNOUNCED_DATE");
 			Integer amountneeded=rs.getInt("AMOUNT_NEEDED");
 			String description=rs.getString("DESCRIPTION");
 			String status=rs.getString("STATUS");
+			RequestType requesttype=new RequestType();
+			requesttype.setFundType(rs.getString("FUNDTYPE"));
 		    request= new Request();
 			request.setRequestId(requestId);
 			request.setExpireDate(expireDate.toLocalDate());
-			request.setFundType(fundType);
+			request.setFundTypeId(fundTypeId);
 			request.setAmount(amount);
+			request.setRequestType(requesttype);
 			request.setDescription(description);
 			request.setAnnouncedDate(announcedDate.toLocalDate());
 			request.setAmountneeded(amountneeded);
@@ -91,15 +95,16 @@ public class RequestDAOimpl {
 	 * @return
 	 * @throws DBExeception
 	 */
-	public List<Request> findBytype(String fundType)throws DBExeception {
+	public List<Request> findBytype(Integer fundTypeId)throws DBExeception {
 		Connection con = ConnectionUtil.getConnection();
 		Request request = null;
 		List<Request> list = null;
 		try {
 			list =new ArrayList<Request>();
-			String sqlStmt="Select REQUEST_Id,ANNOUNCED_DATE,FUND_TYPE,EXPIRE_DATE,DESCRIPTION,STATUS,AMOUNT as Target_Amount,(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id)) as AMOUNT_NEEDED,EXPIRE_DATE FROM REQUEST r where FUND_TYPE = ? AND EXPIRE_DATE and AMOUNT > IFNULL((select sum(AMOUNTFUNDED) from TRANSACTION  where AMOUNTFUNDED BETWEEN 0 and AMOUNT AND REQUEST_Id=r.REQUEST_Id),0)";
+			String sqlStmt="Select REQUEST_Id,ANNOUNCED_DATE,FUNDTYPE_ID,(SELECT FUNDTYPE FROM REQUESTTYPE Where FUNDTYPE_ID=r.FUNDTYPE_ID) as FUNDTYPE,EXPIRE_DATE,DESCRIPTION,STATUS,AMOUNT as Target_Amount,(AMOUNT-(select ifnull(sum(AMOUNTFUNDED),0) from TRANSACTION where REQUEST_Id =r.REQUEST_Id)) as AMOUNT_NEEDED,EXPIRE_DATE FROM REQUEST r where FUNDTYPE_ID = ? AND EXPIRE_DATE and AMOUNT > IFNULL((select sum(AMOUNTFUNDED) from TRANSACTION  where AMOUNTFUNDED BETWEEN 0 and AMOUNT AND REQUEST_Id=r.REQUEST_Id),0)";
+			System.out.println(sqlStmt);
 			PreparedStatement pst = con.prepareStatement(sqlStmt);
-			pst.setString(1,fundType);
+			pst.setInt(1,fundTypeId);
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				request = toRow(rs);
@@ -140,10 +145,10 @@ public class RequestDAOimpl {
 		int IsUpdated=0;
 		try {
 			con = ConnectionUtil.getConnection();
-			String sql = "UPDATE REQUEST SET FUND_TYPE=?,DESCRIPTION=?,AMOUNT=?,EXPIRE_DATE=? WHERE  REQUEST_Id=?";
+			String sql = "UPDATE REQUEST SET FUNDTYPE_ID=,DESCRIPTION=?,AMOUNT=?,EXPIRE_DATE=? WHERE  REQUEST_Id=?";
 			pst = con.prepareStatement(sql);
 			Date Expire_Date = Date.valueOf(request.getExpireDate());
-			pst.setString(1, request.getFundType());
+			pst.setInt(1, request.getFundTypeId());
 			  pst.setString(2,request.getDescription());
 			pst.setInt(3, request.getAmount());
 		    pst.setDate(4, Expire_Date);
@@ -168,19 +173,22 @@ public class RequestDAOimpl {
 	 List<Request> list=null;
 	 try {
 			con=ConnectionUtil.getConnection();
-			String sql="SELECT REQUEST_Id,FUND_TYPE,DESCRIPTION,AMOUNT,EXPIRE_DATE,STATUS from REQUEST";  
+			String sql="SELECT REQUEST_Id,FUNDTYPE_ID,(SELECT FUNDTYPE FROM REQUESTTYPE Where FUNDTYPE_ID=r.REQUEST_Id) as FUNDTYPE,DESCRIPTION,AMOUNT,EXPIRE_DATE,STATUS from REQUEST r;";  
 			pst = con.prepareStatement(sql);
 			ResultSet rs=pst.executeQuery();
 			list = new ArrayList<Request>();
 		  while(rs.next()) {
+			     RequestType requesttype=new RequestType();
+			     requesttype.setFundType(rs.getString("FUNDTYPE"));
 			    Request request = new Request();
 				request.setRequestId(rs.getInt("REQUEST_Id"));
-				request.setFundType(rs.getString("FUND_TYPE"));
+				request.setFundTypeId(rs.getInt("FUNDTYPE_ID"));
 				request.setAmount(rs.getInt("AMOUNT"));
 				request.setDescription(rs.getString("DESCRIPTION"));
 				Date expireDate=rs.getDate("EXPIRE_DATE");
 				request.setStatus(rs.getString("STATUS"));
 				request.setExpireDate(expireDate.toLocalDate());
+				request.setRequestType(requesttype);
 			    list.add(request);
 		  }
 		  }
@@ -191,20 +199,21 @@ public class RequestDAOimpl {
 		}
 		return list;
 	}
- public List<Request> selectFundType() throws DBExeception{
+ public List<RequestType> selectFundType() throws DBExeception{
 		Connection con = ConnectionUtil.getConnection();
-		Request request = null;
-		List<Request> list = null;
+		RequestType requesttype = null;
+		List<RequestType> list = null;
 		try {
-			String smt = "SELECT DISTINCT FUND_TYPE FROM REQUEST";
+			String smt = "SELECT FUNDTYPE,FUNDTYPE_ID FROM REQUESTTYPE;";
 			PreparedStatement pst = con.prepareStatement(smt);
 			ResultSet rs = pst.executeQuery();
 			
-			list = new ArrayList<Request>();
+			list = new ArrayList<RequestType>();
 			while (rs.next()) {
-				request = new Request();
-				request.setFundType(rs.getString("FUND_TYPE"));
-				 list.add(request);
+				requesttype = new RequestType();
+				requesttype.setFundType(rs.getString("FUNDTYPE"));
+				requesttype.setFundTypeId(rs.getInt("FUNDTYPE_ID"));
+				 list.add(requesttype);
 			}
 		} catch (SQLException e) {
 			throw new DBExeception(MessageConstant.UNABLE_TO_REQUEST, e);

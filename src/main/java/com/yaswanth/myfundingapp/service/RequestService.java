@@ -9,6 +9,7 @@ import com.yaswanth.myfundingapp.exceptions.ServiceException;
 import com.yaswanth.myfundingapp.exceptions.ValidaterException;
 import com.yaswanth.myfundingapp.model.Donor;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.model.RequestType;
 import com.yaswanth.myfundingapp.validator.DonorValidator;
 import com.yaswanth.myfundingapp.validator.RequestValidator;
 
@@ -29,7 +30,7 @@ public class RequestService {
 		return rows;
 	}
 	/* list request where we have to give  inputs */  
-	public List<Request> FundType(String fundtype) {
+	public List<Request> FundType(Integer fundtype) {
 		RequestDAOimpl requestDao = new RequestDAOimpl();
 			List<Request> list = null;
 				try {
@@ -66,8 +67,8 @@ public class RequestService {
 		}
 		return req;
 	}
-	public List<Request> Fundtypelist() throws ServiceException {
-		List<Request> req  = null;
+	public List<RequestType> Fundtypelist() throws ServiceException {
+		List<RequestType> req  = null;
 		try {
 			RequestDAOimpl request=new RequestDAOimpl();
 			req = request.selectFundType();

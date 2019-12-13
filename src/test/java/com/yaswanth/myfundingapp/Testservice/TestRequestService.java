@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import com.yaswanth.myfundingapp.exceptions.ServiceException;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.model.RequestType;
 import com.yaswanth.myfundingapp.service.RequestService;
 
 
@@ -17,14 +18,14 @@ import com.yaswanth.myfundingapp.service.RequestService;
 public class TestRequestService {
 	@Test
 	public void testRequest() {
-		String Fund_type = "Food";
+		Integer FundtypeId = 2;
 		Integer Amount = 1000;
 		LocalDate Expire_date = LocalDate.parse("2019-10-19");
 		Integer Admin_Id = 1;
 		String description="FOOD FOR CYCLONE AFFECTED AREAS";
 		RequestService Service = new RequestService();
 		Request req=new Request();
-		req.setFundType(Fund_type);
+		req.setFundTypeId(FundtypeId);
 		req.setAmount(Amount);
 		req.setAdminId(Admin_Id);
 		req.setExpireDate(Expire_date);
@@ -40,14 +41,14 @@ public class TestRequestService {
 		}
 	
 	public void RequestUpdate() {
-		String Fund_type = "Food";
+		Integer FundtypeId = 1;
 		Integer Amount = 1100;
 		LocalDate Expire_date = LocalDate.parse("2019-10-19");
 		String description="FOOD FOR CYCLONE AFFECTED AREAS";
 		Integer RequestId = 1;
 		RequestService service = new RequestService();
 		Request req=new Request();
-		req.setFundType(Fund_type);
+		req.setFundTypeId(FundtypeId);
 		req.setAmount(Amount);
 		req.setDescription(description);
 		req.setRequestId(RequestId);
@@ -64,7 +65,7 @@ public class TestRequestService {
 	public void TestfindByvalue() {
 		RequestService service = new RequestService();
 		  List<Request> req= new ArrayList<Request>();
-		req = service.FundType("Food");
+		req = service.FundType(1);
 		assertNotNull(req); 
 	}
 	@Test
@@ -81,7 +82,7 @@ public class TestRequestService {
 	@Test
 	public void RequesFundtlist(){
 		RequestService service=new RequestService();
-        List<Request> request=null;
+        List<RequestType> request=null;
         try {
 			request=service.Fundtypelist();
 		} catch (ServiceException e) {

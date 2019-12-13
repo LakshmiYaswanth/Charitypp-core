@@ -13,6 +13,7 @@ import com.yaswanth.myfundingapp.dao.DonorDAO;
 import com.yaswanth.myfundingapp.exceptions.DBExeception;
 import com.yaswanth.myfundingapp.model.Donor;
 import com.yaswanth.myfundingapp.model.Request;
+import com.yaswanth.myfundingapp.model.RequestType;
 import com.yaswanth.myfundingapp.model.Transaction;
 import com.yaswanth.myfundingapp.utility.ConnectionUtil;
 import com.yaswanth.myfundingapp.utility.MessageConstant;
@@ -131,18 +132,19 @@ public class DonorDAOImpl implements DonorDAO  {
 		Request request = null;
 		List<Donor> list = null;
 		try {
-			String smt = "select EMAIL,NAME,FUND_TYPE,AMOUNTFUNDED,FUNDED_DATE FROM DONOR d inner join TRANSACTION t on d.DONOR_ID= t.DONOR_ID inner join REQUEST r on r.REQUEST_Id= t.REQUEST_Id where EMAIL=?";
+			String smt = "select EMAIL,NAME,FUNDTYPE,AMOUNTFUNDED,FUNDED_DATE FROM DONOR d ,TRANSACTION t,REQUESTTYPE rt ,REQUEST r where rt.FUNDTYPE_ID = r.FUNDTYPE_ID and  d.DONOR_ID= t.DONOR_ID and r.REQUEST_Id= t.REQUEST_Id and EMAIL=?";
 			PreparedStatement pst = con.prepareStatement(smt);
 			pst.setString(1, email);
 			ResultSet rs = pst.executeQuery();
 			list = new ArrayList<Donor>();
 			while (rs.next()) {
 				donor = new Donor();
+				RequestType requesttype=new RequestType();
+				requesttype.setFundType(rs.getString("FUNDTYPE"));
+				donor.setRequesttype(requesttype);
 				donor.setName(rs.getString("NAME"));
 				donor.setEmail(rs.getString("EMAIL"));
 				request = new Request();
-				request.setFundType(rs.getString("FUND_TYPE"));
-				donor.setRequest(request);
 				trans = new Transaction();
 				trans.setAmountfunded(rs.getInt("AMOUNTFUNDED"));
 				donor.setTransaction(trans);

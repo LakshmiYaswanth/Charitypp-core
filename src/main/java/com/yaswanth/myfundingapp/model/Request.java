@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Request{
 	
 	private Integer requestId ;
-	private String fundType;
+	private Integer fundType_Id;
 	private Integer amount;
 	private Integer amountneeded;
 	private LocalDate announcedDate;
@@ -13,11 +13,19 @@ public class Request{
 	private  Integer adminId ;
 	private String description;
 	private String status;
+	private RequestType requestType;
+	public RequestType getRequestType() {
+		return requestType;
+	}
+	public void setRequestType(RequestType requestType) {
+		this.requestType = requestType;
+	}
 	@Override
 	public String toString() {
-		return "Request [requestId=" + requestId + ", fundType=" + fundType + ", amount=" + amount + 
-			"+ amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate="
-				+ expireDate + ", adminId=" + adminId + ",description=" + description+ ",status=" + status +"]";
+		return "Request [requestId=" + requestId + ", fundTypeId=" + fundType_Id + ", amount=" + amount
+				+ ", amountneeded=" + amountneeded + ", announcedDate=" + announcedDate + ", expireDate=" + expireDate
+				+ ", adminId=" + adminId + ", description=" + description + ", status=" + status + ", requestType="
+				+ requestType + "]";
 	}
 	public Integer getRequestId() {
 		return requestId;
@@ -25,11 +33,11 @@ public class Request{
 	public void setRequestId(Integer requestId) {
 		this.requestId = requestId;
 	}
-	public String getFundType() {
-		return fundType;
+	public Integer getFundTypeId() {
+		return fundType_Id;
 	}
-	public void setFundType(String fundType) {
-		this.fundType = fundType;
+	public void setFundTypeId(Integer fundType_Id) {
+		this.fundType_Id = fundType_Id;
 	}
 	public Integer getAmount() {
 		return amount;
